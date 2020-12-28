@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Verify Page";
+    Layout = "_CommonLayout";
+}
+<div class="content">
+    <div class="form-container">
+        <div class="form-card mt-5 p-5">
+            <div class="row text-right">
+                <div class="col col-2 pt-2  pr-2">
+                    <a asp-controller="Login" asp-action="Index">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5A.5.5 0 0 0 4 8z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="col col-8 text-center">
+                    <h1>
+                        <span class="badge badge-secondary">MA</span>
+                    </h1>
+                </div>
+                <div class="col col-2 ">
+                </div>
+            </div>
+            <div class="row mt-5 text-right">
+                <h3 class="">رمز عبور را وارد کنید</h3>
+            </div>
+            <div class="row mt-2 text-right">
+                <p class="">رمز عبور به حساب کاربری را وارد کنید</p>
+            </div>
+            <div class="row">
+                <div class="input-group flex-nowrap">
+                    <input type="password" class="form-control ">
+                </div>
+            </div>
+            <div class="row mt-4 text-right">
+                <a asp-controller="Login" asp-action="Confirm" class=""><span>ورود با رمز یکبار مصرف ></span></a>
+            </div>
+            <div class="row mt-1 text-right">
+                <a asp-controller="Login" asp-action="Forgot" class=""><span>بازیابی رمز عبور ></span></a>
+            </div>
+            <div class="row mt-4 justify-content-center">
+                <div class="btn-group flex-nowrap">
+                    <button class="btn btn-info p-4" asp-controller="Home" asp-action="Index"><span>ادامه</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

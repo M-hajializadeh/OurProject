@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MA.Models.MainGroup>
+@{
+    ViewData["Title"] = "Option Item Page";
+    Layout = "_Layout";
+   
+    List<string> DetailsJob = new System.Collections.Generic.List<string>
+    {
+        "طراحی بنر",
+        "طراحی لگو",
+        "طراحی کاتالوگ",
+        "طراحی کارت ویزیت",
+        "طراحی کارت عروسی",
+        "طراحی کارت پرسه",
+        "طراحی ",
+    };
+}
+<div class="card text-right mt-3 p-2">
+    <div class="row ">
+        <div class="col">
+            <span>جزئیات سفارش</span>
+            <hr />
+        </div>
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <span>@item.GroupName</span>
+            </div>
+            <div class="row">
+
+                @for (int i = 0; i < DetailsJob.Count; i++)
+                {
+                    <div class="col-lg-2 col-md-2 col-md-3 col-6 mt-2">
+                        <div class="form-group">
+                            <label for="ch1">@DetailsJob[i]</label>
+                            <input type="checkbox" class="form-check" id="ch1" name="ch1" />
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        }
+        <div class="row">
+            <div class="col">
+                <label for="des">توضیحات</label>
+                <textarea name="des" type="text" class="text-body w-100" style="height:8rem;"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="att">فایل ضمیمه</label>
+                <input name="att" accept=".jpg,.doc,.docx,.png,.jpeg,.pdf" class="text-body" type="file" />
+            </div>
+        </div>
+        <div class="row card-footer">
+            <div class="col">
+                <a class="btn btn-danger" asp-action="Index" asp-controller="Basket">ثبت درخواست</a>
+            </div>
+        </div>
+    </div>
+</div>

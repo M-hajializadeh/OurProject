@@ -1,0 +1,21 @@
+﻿
+* {
+    margin: 0px;
+    padding: 0px;
+    direction: rtl;
+    
+}
+
+.baner {
+    margin-top:2px;
+    height: 30rem !important;
+}
+.infouser{
+    width:auto;
+    position: absolute;
+    left:5rem;
+    
+}
+.colordark{
+    background-color:red;
+}

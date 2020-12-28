@@ -1,0 +1,273 @@
+﻿@model IEnumerable<MA.Models.Product>
+@{
+    ViewData["Title"] = "Details Page";
+    Layout = "_Layout";
+    int SellCount = Model.Count();
+    long totalPric = 0;
+    long totalOff = 0;
+    long totalProductOff = 0;
+    int number = 0;
+    int countBuy = 0;
+}
+@if (SellCount > 0)
+{
+    <div class="container ">
+        <div class="row mt-2">
+            <h6>
+                <span>
+                    سبد خرید
+                </span>
+                <span class="badge badge-danger badge-pill">
+                    @SellCount
+                </span>
+            </h6>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        @foreach (var item in Model)
+        {
+            totalPric += (item.Price*countBuy);
+            uint offProduct=MA.Common.Off.CalculateOff(item.Off, item.Price);
+            if (offProduct > 0)
+            {
+                decimal totalProductOff1 = Convert.ToDecimal(item.Price) - offProduct;
+                totalProductOff = Convert.ToUInt32(totalProductOff1);
+                totalOff += Convert.ToInt32(offProduct);
+            }
+
+            <div class="col-12 col-sm-12 col-md-9 col-lg-8 ">
+                <div class="card card-body text-right">
+                    <div class="row">
+                        <div class="col col-lg-3 p-2">
+                            <a href="#"><img src="~/img/@item.PictureUrl" class="card-img" alt="Responsive image"></a>
+                        </div>
+                        <div class="col col-lg-6">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>
+                                        <span>
+                                            @item.ProductName
+                                        </span>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <span>
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shield-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M5.443 1.991a60.17 60.17 0 0 0-2.725.802.454.454 0 0 0-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 0 0 8 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 0 0 2.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 0 0-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 0 1 2.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 0 1-2.418 2.3 6.942 6.942 0 0 1-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 0 1-1.007-.586 11.192 11.192 0 0 1-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 0 1 2.415 1.84a61.11 61.11 0 0 1 2.772-.815z" />
+                                            <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        گارانتی اصالت و سلامت فیزیکی
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <input type="number" onchange="ChangeCountCart(this.value)" class="form-control" min="1" value="1" placeholder="">
+                                </div>
+
+
+                                <div class="col">
+                                    <a onclick="DeleteCart(@number)" class="btn btn-block">
+                                        <span>
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                            </svg>
+                                        </span>
+                                        <span>حذف</span>
+                                        <input id="del_@number" type="hidden" value="@item.ID"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-3 ">
+                            @if (item.Off > 0)
+                            {
+                                <p class="card-text"><span><strike>@item.Price</strike></span><span class="badge badge-pill badge-danger">@item.Off%</span></p>
+                                <p class="card-text"><span><strong>@totalProductOff</strong></span>تومان <span></span></p>
+                            }
+                            else
+                            {
+                                <p class="card-text"><span><strong>@item.Price</strong></span>تومان <span></span></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            number++;
+
+        }
+        <div class="col-12 col-sm-12 col-md-9 col-lg-4  p-2">
+            <div class="card card-body text-right">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    قیمت کالاها
+                                </span>
+                                <span>
+                                    (@SellCount)
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    تخفیف کالاها
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    @totalPric
+                                </span>
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    @totalOff
+                                </span>
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    جمع
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    @{ decimal result = totalPric - totalOff;}
+                                    @result
+                                </span>
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    مبلغ قابل پرداخت
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-5">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    @result
+                                </span>
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                    <a href="@Url.ActionLink("Index", "Payment")" class="btn btn-danger mt-1">ادامه فرآیند خرید</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="row mt-4 text-center">
+        <div class="card card-body">
+            <div class="row text-center mt-3">
+                <div class="col">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="col-12">
+                <span class="alert">سبد خرید شما خالی می باشد!</span>
+            </div>
+            <div class="row text-center mt-3">
+                <div class="col">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-danger">رفتن به صفحه اصلی</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script >
+    function DeleteCart(number) {
+        var i = "#del_" + number;
+        var data = new FormData();
+        var id = $(i).val();
+        data.append('id', id);
+
+        $.ajax({
+            type: "Post",
+            url: "/Basket/Remove",
+            contentType: false,
+            processData: false,
+            data: data,
+
+        }).done(function (res) {
+            if (res.status === "success") {
+                alert(res.message);
+                location.reload();
+            }
+            else { alert(res.message); }
+        });
+    }
+    function ChangeCountCart(number) {
+        alert(number)
+    }
+</script>
