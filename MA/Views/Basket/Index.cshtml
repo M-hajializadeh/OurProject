@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "Details Page";
     Layout = "_Layout";
-    int SellCount = Model.Count();
+    MA.Common.BasketCount.Count = Model.Count();
+    int SellCount = MA.Common.BasketCount.Count;
     long totalPric = 0;
     long totalOff = 0;
     long totalProductOff = 0;

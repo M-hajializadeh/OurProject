@@ -37,7 +37,8 @@ namespace MA.Controllers
             try
             {
                 _Cookies.Set("CartList", id.ToString(), 30);
-                return Json(new { status = "success", message = "محصول به سبد خرید افزوده شد" });
+                Common.BasketCount.Count++;
+                return Json(new { status = "success", message = "محصول به سبد خرید افزوده شد", count=Common.BasketCount.Count.ToString() });
             }
             catch (Exception)
             {
@@ -51,7 +52,8 @@ namespace MA.Controllers
             try
             {
                 _Cookies.Delete("CartList", id.ToString());
-                return Json(new { status = "success", message = "محصول از سبد خرید حذف شد" });
+                Common.BasketCount.Count--;
+                return Json(new { status = "success", message = "محصول از سبد خرید حذف شد", count = Common.BasketCount.Count.ToString() });
             }
             catch (Exception)
             {

@@ -64,20 +64,25 @@
 
     </div>
 </div>
-<div class="row bg-danger mt-2 ">
-    <div class="col-2">
+<div class="row border p-3 mt-2 ">
+    <div class="col-2 text-center">
         <div class="row m-1">
             <div class="col">
                 <a href="#"><img src="~/img/image2.png" class="img-thumbnail" alt="Responsive image"></a>
+                <span>پیشنهادهای شگفت انگیز</span>
             </div>
         </div>
     </div>
     <div class="col-10">
         <div class="row m-1">
-            @for (int i = 0; i < 4; i++)
+            @{ 
+                var modelBind = Model.Where(m => m.Off >= 1);
+            }
+            @foreach (var item in modelBind)
             {
                 <div class="col">
-                    <a href="#"><img src="~/img/image2.png" class="img-thumbnail" alt="Responsive image"></a>
+                    <a asp-controller="Details" asp-action="Index" asp-route-id="@item.ID"><img src="~/img/@item.PictureUrl" class="img-thumbnail" style="width:12rem; height:12rem;" alt="Responsive image"></a>
+                    <span class="badge badge-info badge-pill">@item.Off% OFF</span>
                 </div>
             }
         </div>
