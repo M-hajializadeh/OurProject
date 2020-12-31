@@ -38,7 +38,7 @@ namespace MA.Controllers
             {
                 _Cookies.Set("CartList", id.ToString(), 30);
                 Common.BasketCount.Count++;
-                return Json(new { status = "success", message = "محصول به سبد خرید افزوده شد", count=Common.BasketCount.Count.ToString() });
+                return Json(new { status = "success", message = "محصول به سبد خرید افزوده شد", count= Common.BasketCount.Count.ToString() });
             }
             catch (Exception)
             {
@@ -59,6 +59,21 @@ namespace MA.Controllers
             {
 
                 return Json(new { status = "faild", message = "در حذف محصول مشکلی پیش آمد" });
+            }
+        }
+        [HttpPost]
+        public IActionResult AddCount(string count)
+        {
+            try
+            {
+                string[] result = count.Split(',');
+                result = result.Where(r => r != "").ToArray();
+                //ViewData["count"]=
+                return Json(new { status = "success", message = "به تعداد محصول افزوده شد" });
+            }
+            catch (Exception)
+            {
+                return Json(new { status = "faild", message = "در افزایش تعداد محصول مشکلی پیش آمد" });
             }
         }
     }

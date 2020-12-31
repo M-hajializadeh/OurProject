@@ -1,6 +1,4 @@
-﻿import { ready } from "jquery";
-
-function AddCart(number) {
+﻿function AddCart(number) {
     var i = "#productid_" + number;
     var data = new FormData();
     var id = $(i).val();
@@ -15,8 +13,8 @@ function AddCart(number) {
 
     }).done(function (res) {
         if (res.status === "success") { 
-            alert(res.count)
             alert(res.message);
+            $("#countbasket").text(res.count);
         }
         else { alert("در ثبت اطلاعات مشکلی پیش امد."); }
     });

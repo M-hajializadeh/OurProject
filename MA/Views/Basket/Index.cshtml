@@ -29,8 +29,8 @@
     <div class="row mt-2">
         @foreach (var item in Model)
         {
-            totalPric += (item.Price*countBuy);
-            uint offProduct=MA.Common.Off.CalculateOff(item.Off, item.Price);
+            totalPric += (item.Price * countBuy);
+            uint offProduct = MA.Common.Off.CalculateOff(item.Off, item.Price);
             if (offProduct > 0)
             {
                 decimal totalProductOff1 = Convert.ToDecimal(item.Price) - offProduct;
@@ -69,7 +69,7 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <input type="number" onchange="ChangeCountCart(this.value)" class="form-control" min="1" value="1" placeholder="">
+                                    <input type="number" onchange="ChangeCountCart(this.value, @number)" class="form-control" min="1" value="@countBuy" placeholder="">
                                 </div>
 
 
@@ -82,7 +82,7 @@
                                             </svg>
                                         </span>
                                         <span>حذف</span>
-                                        <input id="del_@number" type="hidden" value="@item.ID"/>
+                                        <input id="del_@number" type="hidden" value="@item.ID" />
                                     </a>
                                 </div>
                             </div>
@@ -246,7 +246,7 @@ else
 }
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script >
+<script>
     function DeleteCart(number) {
         var i = "#del_" + number;
         var data = new FormData();
@@ -268,7 +268,25 @@ else
             else { alert(res.message); }
         });
     }
-    function ChangeCountCart(number) {
-        alert(number)
+    function ChangeCountCart(count, productID) {
+        var id = "#del_" + productID;
+        var idProd = $(id).val();
+        var data = new FormData();
+        var contnt = "," + count + "," + idProd + ",";
+        data.append('count', contnt);
+        
+        $.ajax({
+            type: "Post",
+            url: "/Basket/AddCount",
+            contentType: false,
+            processData: false,
+            data: data,
+        }).done(function (res) {
+            if (res.status === "success") {
+                alert(res.message);
+                location.reload();
+            }
+            else { alert(res.message); }
+        });
     }
 </script>
