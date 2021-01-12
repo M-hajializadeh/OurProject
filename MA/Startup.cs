@@ -33,9 +33,9 @@ namespace MA
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();
 
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ICookiesService, CookiesService>();
-            services.AddTransient<IMainGroupService, MainGroupService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICookiesService, CookiesService>();
+            services.AddScoped<IMainGroupService, MainGroupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

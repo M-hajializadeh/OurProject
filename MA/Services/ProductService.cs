@@ -9,7 +9,7 @@ namespace MA.Services
 {
     public class ProductService : IProductService
     {
-        
+
         private readonly ApplicationDbContext _Context;
         public ProductService(ApplicationDbContext context)
         {
@@ -17,7 +17,7 @@ namespace MA.Services
 
         }
 
-        public async Task<List<Product>> GetProductAsync(SortMethod.SelectSortMethod sortMethod=SortMethod.SelectSortMethod.OrderByAscending)
+        public async Task<List<Product>> GetProductAsync(SortMethod.SelectSortMethod sortMethod = SortMethod.SelectSortMethod.OrderByAscending)
         {
             List<Product> model = new List<Product>();
             model = await _Context.Tbl_Products.Select(p => new Product
@@ -40,7 +40,19 @@ namespace MA.Services
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            Product product = await _Context.Tbl_Products.Where(p => p.ID.Equals(id)).SingleOrDefaultAsync();
+            // var product = await _Context.Tbl_Products.Where(p => p.ID.Equals(id)).SingleOrDefaultAsync();
+            var product = await _Context.Tbl_Products.Select(p => new Product
+            {
+                ID = p.ID,
+                IsShow = p.IsShow,
+                Count = p.Count,
+                MainGroupID = p.MainGroupID,
+                Off = p.Off,
+                PictureUrl = p.PictureUrl,
+                Price = p.Price,
+                ProductName = p.ProductName
+            }).Where(s => s.ID.Equals(id)).SingleOrDefaultAsync();
+
             return product;
         }
     }
