@@ -8,7 +8,8 @@
     long totalOff = 0;
     long totalProductOff = 0;
     int number = 0;
-    int countBuy = 1;
+    uint countBuy = 1;
+
 }
 @if (SellCount > 0)
 {
@@ -33,6 +34,7 @@
             uint offProduct = MA.Common.Off.CalculateOff(item.Off, item.Price);
             if (offProduct > 0)
             {
+                offProduct *= countBuy;
                 decimal totalProductOff1 = Convert.ToDecimal(item.Price) - offProduct;
                 totalProductOff = Convert.ToUInt32(totalProductOff1);
                 totalOff += Convert.ToInt32(offProduct);
