@@ -36,6 +36,7 @@ namespace MA
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICookiesService, CookiesService>();
             services.AddScoped<IMainGroupService, MainGroupService>();
+            services.AddScoped<IOptionalItemService, OptionalItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
