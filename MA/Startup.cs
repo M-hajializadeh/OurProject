@@ -37,6 +37,8 @@ namespace MA
             services.AddScoped<ICookiesService, CookiesService>();
             services.AddScoped<IMainGroupService, MainGroupService>();
             services.AddScoped<IOptionalItemService, OptionalItemService>();
+            services.AddScoped<IApplicationRoleService, ApplicationRoleService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +65,7 @@ namespace MA
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

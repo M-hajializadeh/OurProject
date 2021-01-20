@@ -8,9 +8,19 @@ namespace MA.Controllers
 {
     public class LoginController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Index(string userName)
+        {
+            if (userName!=null)
+            {
+
+            }
+            return null;
         }
 
         public IActionResult Verify()
